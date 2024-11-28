@@ -1,32 +1,43 @@
 pipeline {
-    agent any
-
+    agent { label 'Back-agent' }
+    tools {
+        maven 'maven'
+        jdk 'jdk21'
+    }
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/openjdk-17'
+    }
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'master', url: 'https://github.com/Anir-sadiqui/Sirius-back.git/'
+            }
+        }
+        stage('Install') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
         stage('Build') {
             steps {
-                echo 'Building...'
+                sh 'pwd && mvn package'
             }
         }
-
-        stage('Test') {
+        stage('Deploy to Prod') {
             steps {
-                echo 'Testing...'
+                sh 'echo m6 | sudo -S systemctl restart runBack.service'
             }
         }
-
-        stage('Deploy') {
+       stage('Deploy to Server') {
             steps {
-                echo 'Deploying...'
-            }
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'ssh-credentials-id', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
+                        sh '''
+                        sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USER@172.31.250.60 "$COMMAND_TO_RUN"
+                        '''
+                    }
         }
     }
-
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
+    }
     }
 }
