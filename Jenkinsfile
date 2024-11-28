@@ -5,7 +5,7 @@ pipeline {
         jdk 'jdk21'
     }
     environment {
-        JAVA_HOME = '/usr/lib/jvm/openjdk-17'
+        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk-amd64'
     }
     stages {
         stage('Checkout') {
