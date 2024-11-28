@@ -33,7 +33,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'ssh-credentials-id', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                         sh '''
-                        sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USER@172.31.250.60
+                        sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USER@172.31.250.60 "java -jar agent/workspace/back-jfile/target/Episante-back-1.0-SNAPSHOT.jar"
                         '''
                     }
         }
