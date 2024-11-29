@@ -13,3 +13,11 @@ public class SpringConfiguration implements WebMvcConfigurer {
                 .allowedMethods("*");
     }
 }
+
+
+
+
+
+
+
+
