@@ -33,6 +33,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'ssh-credentials-id', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                         sh '''
+                        if lsof -ti:9090 > /dev/null; then kill -9 \$(lsof -ti:9090)
                         sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USER@172.31.250.60 "nohup java -jar agent/workspace/back-jfile/target/Episante-back-1.0-SNAPSHOT.jar &"
                         '''
                     }
