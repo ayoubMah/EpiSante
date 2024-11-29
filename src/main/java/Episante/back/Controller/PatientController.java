@@ -66,14 +66,14 @@ public class PatientController {
     }
 
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Patient> deletePatient(@PathVariable Long id) {
-//        if(!patientDao.existsById(id)) {
-//            logger.error("Patient not found with id: " + id);
-//        }
-//        patientDao.deleteById(id);
-//        logger.info("Patient deleted successfully: {}", id);
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Patient> deletePatient(@PathVariable Long id) {
+        if(!patientDao.existsById(id)) {
+            logger.error("Patient not found with id: " + id);
+        }
+        patientDao.deleteById(id);
+        logger.info("Patient deleted successfully: {}", id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 }
