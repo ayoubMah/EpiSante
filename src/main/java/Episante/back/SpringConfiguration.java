@@ -10,6 +10,7 @@ public class SpringConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://172.31.249.181:3000")
+                .allowedOrigins("http://localhost:3000")
                 .allowedMethods("*");
     }
 }
